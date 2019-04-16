@@ -11,11 +11,11 @@ def get_config(freqBand, networkID):
           #no shaping
           0x02: [REG_DATAMODUL, RF_DATAMODUL_DATAMODE_PACKET | RF_DATAMODUL_MODULATIONTYPE_FSK | RF_DATAMODUL_MODULATIONSHAPING_00],
           #default:4.8 KBPS
-          0x03: [REG_BITRATEMSB, RF_BITRATEMSB_55555],
-          0x04: [REG_BITRATELSB, RF_BITRATELSB_55555],
+          0x03: [REG_BITRATEMSB, RF_BITRATEMSB_4800],
+          0x04: [REG_BITRATELSB, RF_BITRATEMSB_4800],
           #default:5khz, (FDEV + BitRate/2 <= 500Khz)
-          0x05: [REG_FDEVMSB, RF_FDEVMSB_50000],
-          0x06: [REG_FDEVLSB, RF_FDEVLSB_50000],
+          0x05: [REG_FDEVMSB, RF_FDEVMSB_2000],
+          0x06: [REG_FDEVLSB, RF_FDEVLSB_2000],
 
           0x07: [REG_FRFMSB, frfMSB[freqBand]],
           0x08: [REG_FRFMID, frfMID[freqBand]],
@@ -36,6 +36,8 @@ def get_config(freqBand, networkID):
           #for BR-19200: //* 0x19 */ { REG_RXBW, RF_RXBW_DCCFREQ_010 | RF_RXBW_MANT_24 | RF_RXBW_EXP_3 },
           #DIO0 is the only IRQ we're using
           0x25: [REG_DIOMAPPING1, RF_DIOMAPPING1_DIO0_01],
+          0x26: [REG_DIOMAPPING2, RF_DIOMAPPING2_CLKOUT_OFF],
+          0x28: [REG_IRQFLAGS2, RF_IRQFLAGS2_FIFOOVERRUN],
           #must be set to dBm = (-Sensitivity / 2) - default is 0xE4=228 so -114dBm
           0x29: [REG_RSSITHRESH, 220],
           #/* 0x2d */ { REG_PREAMBLELSB, RF_PREAMBLESIZE_LSB_VALUE } // default 3 preamble bytes 0xAAAAAA
